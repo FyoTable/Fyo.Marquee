@@ -1,0 +1,68 @@
+{
+    "name": "io.cordova.hellocordova",
+    "version": "1.0.0",
+    "displayName": "HelloCordova",
+    "cordova": {
+        "platforms": [
+            "browser"
+        ],
+        "plugins": {
+            "cordova-plugin-fullscreen": {},
+            "cordova-plugin-whitelist": {},
+            "ionic-plugin-keyboard": {},
+            "cordova-plugin-console": {},
+            "cordova-plugin-statusbar": {},
+            "cordova-plugin-device": {},
+            "cordova-plugin-splashscreen": {},
+            "cordova-plugin-file-opener2": {},
+            "cordova-plugin-openfilenative": {},
+            "cordova-plugin-appavailability": {},
+            "cordova-plugin-applist2": {},
+            "com.lampa.startapp": {}
+        }
+    },
+    "dependencies": {
+        "com.lampa.startapp": "^0.1.4",
+        "cordova-android": "^6.2.3",
+        "cordova-browser": "~4.1.0",
+        "cordova-plugin-appavailability": "^0.4.2",
+        "cordova-plugin-applist2": "git+https://github.com/jmrezayi2/Applist.git",
+        "cordova-plugin-console": "~1.0.7",
+        "cordova-plugin-device": "~1.1.6",
+        "cordova-plugin-file-opener2": "^2.0.15",
+        "cordova-plugin-fullscreen": "~1.1.0",
+        "cordova-plugin-openfilenative": "git+https://github.com/andischerer/cordova-plugin-openfilenative.git",
+        "cordova-plugin-splashscreen": "~4.0.3",
+        "cordova-plugin-statusbar": "~2.2.3",
+        "cordova-plugin-whitelist": "1",
+        "ionic-plugin-keyboard": "~2.2.1"
+    },
+    "cordovaPlugins": [
+        "cordova-plugin-whitelist",
+        "cordova-plugin-file",
+        "cordova-plugin-compat",
+        "cordova-plugin-fullscreen",
+        "cordova-plugin-console",
+        "cordova-plugin-device",
+        "cordova-plugin-splashscreen",
+        "cordova-plugin-statusbar",
+        "ionic-plugin-keyboard"
+    ],
+    "cordovaPlatforms": [
+        {
+            "platform": "android",
+            "version": "",
+            "locator": "android"
+        },
+        {
+            "platform": "browser",
+            "version": "",
+            "locator": "browser"
+        },
+        {
+            "platform": "ios",
+            "version": "",
+            "locator": "ios"
+        }
+    ]
+}

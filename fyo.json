@@ -1,0 +1,13 @@
+{
+    "version":"0.0.1",
+    "fyoserver": "10.0.1.53:3000",
+    "games": [
+        "io.cordova.testapp"
+    ],
+    "ads": [
+        {
+            "src": "demo.mp4",
+            "type": "video"
+        }
+    ]
+}

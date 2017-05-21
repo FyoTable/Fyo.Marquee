@@ -1,0 +1,21 @@
+{
+  "name": "Fyo Marquee",
+  "homepage": "http://fyo.io",
+  "authors": [
+    "Garrett Hoofman <gambitsunob@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fyogametable": "^1.0.12",
+    "socket.io": "^2.0.1"
+  }
+}
