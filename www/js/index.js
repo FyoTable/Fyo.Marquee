@@ -49,38 +49,37 @@ function ReadFyoConfig() {
             adsEl.append(aEl);
         }
 
-            var socket = io('http://' + result.fyoserver);
-            socket.on('connect', function () {
-                socket.emit('AppHandshakeMsg', {
-                    AppIDString: 'Marquee',
-                    Controller: 'base_3D_controller'
-                });
+        var socket = io('http://' + result.fyoserver);
+        socket.on('connect', function () {
+            socket.emit('MarqueeHandshakeMsg', {
+                AppIDString: 'Marquee',
+                Controller: 'base_3D_controller'
             });
+        });
 
-            socket.on('SGUpdateMsg', function (packet) {
-                console.log(packet);
-                switch (packet.MessageType) {
-                    case 'Input': {
-                        var input = {
-                            x2: packet.data["axis 0"],
-                            y2: -packet.data["axis 1"],
-                            x: packet.data["axis 2"],
-                            y: -packet.data["axis 3"],
-                            a: packet.data['button 0'],
-                            b: packet.data['button 1'],
-                            start: packet.data['button 2'],
-                        };
+        socket.on('SGUpdateMsg', function (packet) {
+            console.log(packet);
+            switch (packet.MessageType) {
+                case 'Input': {
+                    var input = {
+                        x2: packet.data["axis 0"],
+                        y2: -packet.data["axis 1"],
+                        x: packet.data["axis 2"],
+                        y: -packet.data["axis 3"],
+                        a: packet.data['button 0'],
+                        b: packet.data['button 1'],
+                        start: packet.data['button 2'],
+                    };
 
-                        if(input.a) {
-                            OpenApp('io.cordova.testapp');
-                        }
-
-                        window.lastController = input;
-                        break;
+                    if(input.a) {
+                        OpenApp('io.cordova.testapp');
                     }
-                }
-            });
 
+                    window.lastController = input;
+                    break;
+                }
+            }
+        });
     });
 }
 

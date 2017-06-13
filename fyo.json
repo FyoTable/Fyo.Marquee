@@ -1,6 +1,6 @@
 {
     "version":"0.0.1",
-    "fyoserver": "10.0.1.53:3000",
+    "fyoserver": "10.0.1.78:8080",
     "games": [
         "io.cordova.testapp"
     ],
