@@ -1,14 +1,26 @@
 function ReadFile(p, cb) {
 	window.resolveLocalFileSystemURL(p,
 		function(fileEntry) {
+			console.log(fileEntry);
 			fileEntry.file(function(file) {
 				var reader = new FileReader();
 
 				reader.onloadend = function(e) {
+					console.log("Successful file read: " + this.result);
 					cb && cb(null, this.result);
 				}
+				reader.onprogress = function(e) {
+					console.log(e); }
+				reader.onloadstart = function(e) {
+					console.log(e); }
+				reader.onload = function(e) {
+					console.log(e); }
+				reader.onerror = function(e) {
+					console.log(e); }
+				reader.onabort = function(e) {
+					console.log(e); }
 
-				reader.readAsText(file);
+				reader.readAsText(file);//readAsDataURL(file);
 			});
 		}, function(err) {
 			console.log(err);
@@ -45,13 +57,13 @@ function OpenApp(a) {
 }
 
 function ReadFyoConfig() {
-	ReadFile(cordova.file.externalRootDirectory + "fyo.json", function(err, text) {
+	ReadFile(cordova.file.externalDataDirectory + "fyo.json", function(err, text) {
 		var result = JSON.parse(text);
 		// document.getElementById('version').innerText = result.version;
 		// document.getElementById('fyoserver').innerText = result.fyoserver;
 
 		function SetGame(g) {
-			ReadFileDataURL(cordova.file.externalRootDirectory + g.img, function(err, data) {
+			ReadFileDataURL(cordova.file.externalDataDirectory + g.img, function(err, data) {
 				console.log(err, data);
 				g.imgURL = data;
 			});
@@ -66,7 +78,7 @@ function ReadFyoConfig() {
 			for(var j = 0; j < result.games.length; j++) {
 				var g = result.games[j];
 				var imgEl = document.createElement('img');
-				imgEl.setAttribute('src', 'file:///storage/emulated/0/' + g.img);
+				imgEl.setAttribute('src', cordova.file.externalDataDirectory + g.img);
 				c.appendChild(imgEl);
 			}
 		}
@@ -174,7 +186,7 @@ var app = {
 		// }
 		//
 		// document.addEventListener("deviceready", function() {
-		// 	AndroidFullScreen.immersiveMode(function() {}, function() {});
+		 	AndroidFullScreen.immersiveMode(function() {}, function() {});
 		 	ReadFyoConfig();
 		// }, false);
 	},

@@ -1,13 +1,13 @@
 {
     "version":"0.0.1",
-    "fyoserver": "127.0.0.1:8080",
+    "fyoserver": "10.0.1.78:8080",
     "games": [
 		{
-			"app": "com.HyperHiatus.HyperTanks",
+			"app": "io.cordova.testapp",
 			"img": "Fyo/cover2.svg"
 		},
 		{
-			"app": "com.DCCKLLC.ZombieSurvivor",
+			"app": "io.cordova.testapp",
 			"img": "Fyo/cover1.svg"
 		},
 		{
