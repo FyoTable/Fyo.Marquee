@@ -2,7 +2,22 @@
     "version":"0.0.1",
     "fyoserver": "10.0.1.78:8080",
     "games": [
-        "io.cordova.testapp"
+		{
+			"app": "io.cordova.testapp",
+			"img": "Fyo/cover2.svg"
+		},
+		{
+			"app": "io.cordova.testapp",
+			"img": "Fyo/cover1.svg"
+		},
+		{
+			"app": "io.cordova.testapp",
+			"img": "Fyo/cover2.svg"
+		},
+		{
+			"app": "io.cordova.testapp",
+			"img": "Fyo/cover3.svg"
+		}
     ],
     "ads": [
         {

@@ -16,6 +16,26 @@ function ReadFile(p, cb) {
 		});
 }
 
+//
+function ReadFileDataURL(p, cb) {
+	window.resolveLocalFileSystemURL(p,
+		function(fileEntry) {
+			fileEntry.file(function(file) {
+				var reader = new FileReader();
+
+				reader.onloadend = function(e) {
+					cb && cb(null, this.result);
+				}
+
+				reader.readAsDataURL(file);
+			});
+		}, function(err) {
+			console.log(err);
+			cb && cb(err);
+		}
+	);
+}
+
 function OpenApp(a) {
 	startApp.set({ "package":a }, { }).start(function() {
 		console.log("OK");
@@ -29,6 +49,27 @@ function ReadFyoConfig() {
 		var result = JSON.parse(text);
 		// document.getElementById('version').innerText = result.version;
 		// document.getElementById('fyoserver').innerText = result.fyoserver;
+
+		function SetGame(g) {
+			ReadFileDataURL(cordova.file.externalRootDirectory + g.img, function(err, data) {
+				console.log(err, data);
+				g.imgURL = data;
+			});
+		}
+		for(var i = 0; i < result.games.length; i++) {
+			SetGame(result.games[i]);
+		}
+
+		var imageContainers = document.getElementsByClassName('images');
+		for(var i = 0; i < imageContainers.length; i++) {
+			var c = imageContainers[i];
+			for(var j = 0; j < result.games.length; j++) {
+				var g = result.games[j];
+				var imgEl = document.createElement('img');
+				imgEl.setAttribute('src', 'file:///storage/emulated/0/' + g.img);
+				c.appendChild(imgEl);
+			}
+		}
 
 		// var gamesEl = document.getElementById('games');
 		// for(var i = 0; i < result.games.length; i++) {
@@ -54,10 +95,33 @@ function ReadFyoConfig() {
 		var socket = io('http://' + result.fyoserver);
 		socket.on('connect', function () {
 			console.log('connected');
-			socket.emit('MarqueeHandshakeMsg', {
+			socket.emit('AppHandshakeMsg', {
 				AppIDString: 'Marquee',
 				Controller: 'Marquee'
 			});
+			socket.on('AppHandshakeMsg', function() {
+				socket.emit("SGRedirectMsg", 'Marquee');
+			});
+
+			socket.on('SGConnected', function(data) {
+				console.log(data);
+				if(data.controller != 'Marquee') {
+					return socket.emit("SGRedirectMsg", 'Marquee');
+				} else {
+					socket.emit("SGUpdateMsg", {
+						MessageType: "Games",
+						data: result.games
+					});
+				}
+			});
+
+			socket.on('SGReconnectMsg', function(data) {
+				socket.emit("SGUpdateMsg", {
+					MessageType: "Games",
+					data: result.games
+				});
+			});
+
 		});
 
 		socket.on('SGUpdateMsg', function (packet) {
@@ -82,6 +146,8 @@ function ReadFyoConfig() {
 					break;
 				}
 				case 'Start': {
+					console.log('START');
+					OpenApp('io.cordova.testapp');
 					OpenApp(packet.data);
 					break;
 				}
