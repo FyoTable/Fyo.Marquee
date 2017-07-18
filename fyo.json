@@ -4,18 +4,14 @@
     "games": [
 		{
 			"app": "com.HyperHiatus.HyperTanks",
+			"img": "Fyo/cover1.svg"
+		},
+		{
+			"app": "com.DCCKLLC.FyoGame",
 			"img": "Fyo/cover2.svg"
 		},
 		{
 			"app": "com.DCCKLLC.ZombieSurvivor",
-			"img": "Fyo/cover1.svg"
-		},
-		{
-			"app": "io.cordova.testapp",
-			"img": "Fyo/cover2.svg"
-		},
-		{
-			"app": "io.cordova.testapp",
 			"img": "Fyo/cover3.svg"
 		}
     ],

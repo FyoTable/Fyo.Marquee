@@ -1,9 +1,10 @@
 {
-    "name": "io.cordova.hellocordova",
-    "version": "1.0.0",
-    "displayName": "HelloCordova",
+    "name": "io.DCCKLLC.FyoMarquee",
+    "version": "2.0.0",
+    "displayName": "FyoMarquee",
     "cordova": {
         "platforms": [
+            "android",
             "browser"
         ],
         "plugins": {
