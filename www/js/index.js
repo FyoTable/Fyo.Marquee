@@ -1,33 +1,5 @@
 
-function ReadFyoConfig(cb) {
 
-	if(!cordova.file.externalDataDirectory) {
-		cordova.file.externalDataDirectory = '';
-	}
-
-	ReadFile(cordova.file.externalDataDirectory + "fyo.json", function(err, text) {
-		var result;
-
-		if(err) {
-			result = {};
-			result.games = [];
-			result.ads = [];
-			result.fyoserver = '10.1.107.163:8080';
-
-			ReadFile(cordova.file.externalRootDirectory + "fyo.json", function(err, text) {
-				if(!err) {
-					result = JSON.parse(text);
-				}
-				cb && cb(err, result);
-			});
-
-		} else {
-			result = JSON.parse(text);
-			cb && cb(null, result);
-		}
-
-	});
-}
 
 var app = {
 	// Application Constructor
@@ -47,11 +19,14 @@ var app = {
 		// }
 		//
 		// document.addEventListener("deviceready", function() {
-		 	AndroidFullScreen.immersiveMode(function() {}, function() {});
+			var AndroidFullScreen = AndroidFullScreen || null;
+			if(AndroidFullScreen) {
+				AndroidFullScreen.immersiveMode(function() {}, function() {});
+			}
 		 	ReadFyoConfig(function(err, result) {
 
-				document.getElementById('qr').setAttribute('src', 'http://' + result.fyoserver + '/qr/' + encodeURIComponent(result.fyoserver));
-				document.getElementById('qr2').setAttribute('src', 'http://' + result.fyoserver + '/qr/' + encodeURIComponent(result.fyoserver));
+				document.getElementById('qr').setAttribute('src', 'http://127.0.0.1:8080/qr/' + encodeURIComponent(result.portalEndPoint));
+				document.getElementById('qr2').setAttribute('src', 'http://127.0.0.1:8080/qr/' + encodeURIComponent(result.portalEndPoint));
 
 				var ind = 0;
 				var timer = null;
@@ -73,15 +48,48 @@ var app = {
 				// document.getElementById('version').innerText = result.version;
 				// document.getElementById('fyoserver').innerText = result.fyoserver;
 
+				function CodeGen(id, player) {
+					fetch('http://fyo.io/api/code/create/' + result.id + '/' + player, {
+						method: 'POST'
+					}).then( function( result) {
+						console.log(result);
+						result.json().then(function(code) { 							
+							document.getElementById(id).innerText = code;						
+						} )
+					});
+					setTimeout(function() {
+						CodeGen(id, player);
+					}, 5 * 1000 * 60); // Every 5 minutes
+				}
+
+				// Portal Code Gens
+				for(var i = 0; i < 6; i++) {
+					CodeGen('code-' + (i + 1), i);
+				}
+
+
+
 				function SetGame(g) {
 					ReadFileDataURL(cordova.file.externalDataDirectory + g.img, function(err, data) {
 						console.log(err, data);
 						g.imgURL = data;
 					});
 				}
-				for(var i = 0; i < result.games.length; i++) {
-					SetGame(result.games[i]);
-				}
+				result.games = [{
+					app: 'com.HyperHiatus.HyperTanks',
+					img: 'cover1.svg',
+					imgURL: '/HyperTanks/cover1.svg'
+				},{
+					app: 'io.DCCKLLC.TicTacToe',
+					img: 'cover2.svg',
+					imgURL: '/TicTacToe/cover2.svg'
+				},{
+					app: 'io.DCCKLLC.ZombieGame',
+					imgURL: '/ZombieGame/cover3.svg'
+				}];
+				// for(var i = 0; i < result.games.length; i++) {
+				// 	SetGame(result.games[i]);
+				// }
 
 				var imageContainers = document.getElementsByClassName('images');
 				for(var i = 0; i < imageContainers.length; i++) {
@@ -89,14 +97,13 @@ var app = {
 					for(var j = 0; j < result.games.length; j++) {
 						var g = result.games[j];
 						var imgEl = document.createElement('img');
-						imgEl.setAttribute('src', cordova.file.externalDataDirectory + g.img);
+						//imgEl.setAttribute('src', cordova.file.externalDataDirectory + g.img);
+						imgEl.setAttribute('src', 'http://127.0.0.1:8080' + g.imgURL);
 						c.appendChild(imgEl);
 					}
 				}
 
-				console.log('connecting to', result.fyoserver);
-
-				var socket = io('http://' + result.fyoserver);
+				var socket = io('http://127.0.0.1:8080');
 				socket.on('connect', function () {
 					console.log('connected');
 					socket.emit('AppHandshakeMsg', {

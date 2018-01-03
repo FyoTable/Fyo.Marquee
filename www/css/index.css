@@ -207,6 +207,8 @@ body {
 	height: 128px;
 	z-index: 10000;
     background-color: white;
+
+    display: none;
 }
 #qr2 {
 	position: absolute;
@@ -221,5 +223,132 @@ body {
 	-moz-transform: rotate(180deg);
 	-o-transform: rotate(180deg);
 	-ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+    
+    display: none;
+}
+
+
+.codes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.codes .code {
+    display: inline-block;
+    position: absolute;
+    text-transform: none;
+    font-family: monospace;
+    width: 0;
+    height: 0;
+    overflow: visible;
+}
+.codes .code .inner {
+    width: 173px;
+    position: absolute;
+    top: -53px;
+    left: -86px;
+}
+.codes .code .inner-bottom {
+    left: -86px;
+    position: relative;
+}
+.codes .code .inner-top {
+    right: -86px;
+    position: relative;
+}
+.codes .code .code-player {
+    color: #fff;
+    display: block;
+    text-align: center;
+    padding: 5px;
+    background-color: #558;
+    border: 1px solid #fff;
+    border-bottom: 0;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+.codes .code .code-left {
+    border: 1px solid #fff;
+    border-radius: 3px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #111;
+    color: #fff;
+    width: 75px;
+    float: left;
+    padding: 5px;
+}
+.codes .code .code-right {
+    border: 1px solid #fff;
+    border-left: 0;
+    border-radius: 3px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: #558;
+    color: #fff;
+    width: 75px;
+    float: left;
+    padding: 5px;
+    text-align: center;
+}
+
+.codes .code.sixplayers.one {
+    bottom: 0;
+    left: 33%;
+}
+
+.codes .code.sixplayers.two {
+    bottom: 0;
+    left: 66%;
+}
+
+.codes .code.sixplayers.three {
+    bottom: 50%;
+    right: 0;
+
+	-webkit-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+}
+
+.codes .code.sixplayers.four {
+    top: 0;
+    left: 66%;
+
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
 	transform: rotate(180deg);
+}
+
+.codes .code.sixplayers.five {
+    top: 0;
+    left: 33%;
+
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.codes .code.sixplayers.six {
+    bottom: 50%;
+    left: 0;
+
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	transform: rotate(90deg);
 }
