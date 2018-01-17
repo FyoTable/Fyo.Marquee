@@ -23,6 +23,13 @@ var app = {
 			if(AndroidFullScreen) {
 				AndroidFullScreen.immersiveMode(function() {}, function() {});
 			}
+
+			if(window && window.plugins && window.plugins.insomnia && window.plugins.insomnia.keepAwake) {
+			window.plugins.insomnia.keepAwake()
+			} else {
+				window.loccation = 'admin.html';
+			}
+
 		 	ReadFyoConfig(function(err, result) {
 
 				document.getElementById('qr').setAttribute('src', 'http://127.0.0.1:8080/qr/' + encodeURIComponent(result.portalEndPoint));
