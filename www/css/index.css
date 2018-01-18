@@ -425,3 +425,48 @@ body {
     width: 57px;
     float: left;
 }
+
+
+.phone-wrapper {
+    width: 0;
+    position: absolute;
+    overflow: visible;
+    display: none;
+}
+
+.phone-wrapper.connecting, .phone-wrapper.connected {
+    display: block;
+}
+
+.phone-wrapper-content {
+    width: 100px;
+    left: -100px;
+    position: relative;
+}
+
+@keyframes flickerAnimation {
+    0%   { opacity:1; }
+    50%  { opacity:0.25; }
+    100% { opacity:1; }
+  }
+  @-o-keyframes flickerAnimation{
+    0%   { opacity:1; }
+    50%  { opacity:0.25; }
+    100% { opacity:1; }
+  }
+  @-moz-keyframes flickerAnimation{
+    0%   { opacity:1; }
+    50%  { opacity:0.25; }
+    100% { opacity:1; }
+  }
+  @-webkit-keyframes flickerAnimation{
+    0%   { opacity:1; }
+    50%  { opacity:0.25; }
+    100% { opacity:1; }
+  }
+  .connecting .animate-flicker {
+     -webkit-animation: flickerAnimation 2s infinite;
+     -moz-animation: flickerAnimation 2s infinite;
+     -o-animation: flickerAnimation 2s infinite;
+      animation: flickerAnimation 2s infinite;
+  }

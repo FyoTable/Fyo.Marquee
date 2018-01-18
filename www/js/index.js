@@ -130,6 +130,21 @@ var app = {
 								data: result.games
 							});
 						}
+
+						console.log(data);
+
+						var el = document.getElementById('code-' + (data.SGID + 1) + '-phone');
+						if(el) {
+							el.setAttribute('class', 'phone-wrapper connected');
+						}
+					});
+
+					socket.on('SGDisconnected', function(data) {
+						console.log(data);
+						var el = document.getElementById('code-' + (data.SGID + 1) + '-phone');
+						if(el) {
+							el.setAttribute('class', 'phone-wrapper');
+						}
 					});
 
 					socket.on('SGReconnectMsg', function(data) {
@@ -140,6 +155,21 @@ var app = {
 								MessageType: "Games",
 								data: result.games
 							});
+						}
+					});
+
+					socket.on('SGconnectAttempt', function(data) {
+						if(data) {
+							var el = document.getElementById('code-' + (data.SGID + 1) + '-phone');
+							if(el) {
+								el.setAttribute('class', 'phone-wrapper connecting');
+								setTimeout(function() {
+									var isConnected = el.getAttribute('class').indexOf('connected') > -1;
+									if(!isConnected) {
+										el.setAttribute('class', 'phone-wrapper');
+									}
+								}, 1000 * 60);
+							}
 						}
 					});
 
