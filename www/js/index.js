@@ -159,8 +159,9 @@ var app = {
 					});
 
 					socket.on('SGconnectAttempt', function(data) {
+						console.log('SGconnectAttempt', data);
 						if(data) {
-							var el = document.getElementById('code-' + (data.SGID + 1) + '-phone');
+							var el = document.getElementById('code-' + (parseInt(data.SGID) + 1) + '-phone');
 							if(el) {
 								el.setAttribute('class', 'phone-wrapper connecting');
 								setTimeout(function() {
